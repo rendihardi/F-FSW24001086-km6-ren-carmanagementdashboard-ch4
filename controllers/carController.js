@@ -66,13 +66,27 @@ const createCar = async (req, res) => {
 };
 
 // update
+
 const updateCar = async (req, res) => {
   try {
-    const car = await Car.update(req.body, {
-      where: {
-        id: req.params.id,
-      },
-    });
+    const existingPhoto = req.body.existing_photo;
+    let newPhoto;
+    if (req.file) {
+      newPhoto = req.file.filename;
+    } else {
+      // Jika tidak ada file baru, gunakan nama file yang sudah ada
+      newPhoto = existingPhoto;
+    }
+    // Update data mobil, termasuk nama file foto baru atau yang sudah ada
+    await Car.update(
+      { ...req.body, photo: newPhoto }, // Gunakan nama file baru atau yang sudah ada
+      {
+        where: {
+          id: req.params.id,
+        },
+      }
+    );
+
     const carUpdate = await Car.findByPk(req.params.id);
     res.status(200).json({
       status: "success",
@@ -82,8 +96,7 @@ const updateCar = async (req, res) => {
       },
     });
   } catch (err) {
-    res.status(400).json({
-      status: "fail",
+    res.render("error.ejs", {
       message: err.message,
     });
   }

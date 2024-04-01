@@ -36,7 +36,7 @@ const createCar = async (req, res) => {
     const carData = { ...req.body, photo };
 
     await Car.create(carData);
-    req.flash("message", "Data Berhasil Disimpan");
+    req.flash("message", "Disimpan");
     res.redirect("/cars");
   } catch (err) {
     console.error(err.message);
@@ -62,19 +62,14 @@ const editCarPage = async (req, res) => {
 
 const editCar = async (req, res) => {
   try {
-    // Dapatkan nama file foto yang sudah ada dari input tersembunyi
     const existingPhoto = req.body.existing_photo;
-
-    // Periksa apakah ada file baru yang diunggah
     let newPhoto;
     if (req.file) {
-      // Jika ada file baru, gunakan nama file baru
       newPhoto = req.file.filename;
     } else {
       // Jika tidak ada file baru, gunakan nama file yang sudah ada
       newPhoto = existingPhoto;
     }
-
     // Update data mobil, termasuk nama file foto baru atau yang sudah ada
     await Car.update(
       { ...req.body, photo: newPhoto }, // Gunakan nama file baru atau yang sudah ada
@@ -85,7 +80,7 @@ const editCar = async (req, res) => {
       }
     );
 
-    req.flash("message", "Diedit");
+    req.flash("message", "Diubah");
     res.redirect("/cars");
   } catch (err) {
     res.render("error.ejs", {
@@ -103,7 +98,7 @@ const deleteCar = async (req, res) => {
         id: req.params.id,
       },
     });
-    req.flash("message", "Di hapus");
+    req.flash("message", "Dihapus");
     res.redirect("/cars");
   } catch (err) {
     res.status(400).json({
