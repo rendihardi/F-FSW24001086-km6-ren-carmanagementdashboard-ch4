@@ -138,17 +138,27 @@ main {
 }
 
 /* button filter */
+
 .filter-buttons .filter-btn {
   border: 1px solid #0d28a6;
   color: #0d28a6;
   padding: 7px;
   margin: 3px;
+  cursor: pointer;
 }
 
+/* Active styles */
+.filter-buttons .filter-btn.active {
+  background-color: #cfd4ed;
+  color: #0d28a6;
+}
+
+/* Hover styles */
 .filter-buttons .filter-btn:hover {
   background-color: #cfd4ed;
   color: #0d28a6;
 }
+
 /* Button creat update */
 .cancel-btn {
   border: 1px solid #0d28a6;

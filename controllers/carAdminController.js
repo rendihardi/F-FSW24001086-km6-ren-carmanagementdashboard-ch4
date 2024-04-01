@@ -1,8 +1,30 @@
 const { Car } = require("../models");
 
+const { Op } = require("sequelize");
+
 const carPage = async (req, res) => {
   try {
-    const cars = await Car.findAll();
+    let cars;
+    const search = req.query.search;
+    const filter = req.query.filter;
+
+    // Search
+    if (search) {
+      cars = await Car.findAll({
+        where: {
+          name: {
+            [Op.iLike]: `%${search}%`,
+          },
+        },
+      });
+    } else {
+      cars = await Car.findAll();
+    }
+
+    // Filter berdasarkan ukuran mobil jika ada nilai filter
+    if (filter && filter !== "all") {
+      cars = cars.filter((car) => car.size === filter);
+    }
 
     res.render("cars/index.ejs", {
       cars,
