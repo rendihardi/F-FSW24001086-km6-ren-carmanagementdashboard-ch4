@@ -289,3 +289,13 @@ main {
   font-weight: 500;
   font-size: 16px;
 }
+
+/* modal */
+.btn-yes {
+  background-color: #0d28a6;
+  color: #ffffff;
+}
+.btn-no {
+  border-color: #0d28a6;
+  background-color: #ffffff;
+}

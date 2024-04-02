@@ -195,17 +195,23 @@
               at <%= formattedUpdatedAt %>
             </p>
             <div class="buttons">
-              <form action="/cars/admin/delete/<%= car.id %>" method="POST">
-                <button class="delete-btn">
-                  <span
-                    ><img
-                      src="/assets/fi_trash-2.svg"
-                      alt="delete"
-                      style="width: 15px; height: 15px; vertical-align: middle"
-                  /></span>
-                  Delete
-                </button>
-              </form>
+              <!-- Delete -->
+              <button
+                type="button"
+                class="btn delete-btn"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal<%= car.id %>"
+              >
+                <span
+                  ><img
+                    src="/assets/fi_trash-2.svg"
+                    alt="delete"
+                    style="width: 15px; height: 15px; vertical-align: middle"
+                /></span>
+                Delete
+              </button>
+
+              <!-- Update -->
               <a href="cars/edit/<%=car.id%>">
                 <button class="update-btn">
                   <span
@@ -217,6 +223,52 @@
                   Update
                 </button>
               </a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Modal Konfirm Delete -->
+        <div
+          class="modal fade"
+          id="exampleModal<%= car.id %>"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header"></div>
+              <div class="modal-body text-center">
+                <img src="/assets/beep.png" alt="Beep" />
+                <h3>Menghapus Data Mobil</h3>
+                <p
+                  class="me-5 ms-5"
+                  style="text-align: justify; max-width: 400px"
+                >
+                  Setelah dihapus, data mobil tidak dapat dikembalikan. Yakin
+                  ingin menghapus?
+                </p>
+              </div>
+
+              <div class="modal-footer justify-content-center">
+                <form action="/cars/admin/delete/<%=car.id%>" method="POST">
+                  <button
+                    type="submit"
+                    class="btn btn-yes btn-primary"
+                    style="width: 70px"
+                  >
+                    Ya
+                  </button>
+                </form>
+                <button
+                  style="width: 70px"
+                  type="button"
+                  class="btn btn-secondary btn-no"
+                  data-bs-dismiss="modal"
+                >
+                  Tidak
+                </button>
+              </div>
             </div>
           </div>
         </div>
